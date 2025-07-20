@@ -1,0 +1,243 @@
+{
+  // Biome設定ファイル - JavaScript/TypeScriptプロジェクト用の汎用設定
+  // 役割: リンター・フォーマッター・インポート整理の統合設定
+  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  
+  // 基本設定 - プロジェクト全体の動作を制御
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true,
+    // Git管理されていないファイルを自動的に無視
+    "defaultBranch": "main"
+  },
+  
+  // ファイル処理設定 - 対象ファイルとエンコーディング
+  "files": {
+    // UTF-8エンコーディングを強制（文字化け防止）
+    "encoding": "utf8",
+    // Biomeが処理する対象ファイルの拡張子
+    "include": [
+      "**/*.js",
+      "**/*.jsx", 
+      "**/*.ts",
+      "**/*.tsx",
+      "**/*.json",
+      "**/*.jsonc"
+    ],
+    // 処理対象から除外するファイル・ディレクトリ
+    "ignore": [
+      "**/node_modules/**",
+      "**/dist/**",
+      "**/build/**",
+      "**/.next/**",
+      "**/coverage/**",
+      "**/*.min.js",
+      "**/*.bundle.js",
+      "**/public/**",
+      "**/.env*"
+    ],
+    // 行末の改行を統一（LF）
+    "lineEnding": "lf",
+    // 行末の空白を無視
+    "lineWidth": 80
+  },
+  
+  // フォーマッター設定 - コードスタイルの自動整形
+  "formatter": {
+    "enabled": true,
+    // インデントをスペースに統一（タブとの混在を防ぐ）
+    "indentStyle": "space",
+    // インデント幅を2スペースに設定（React/Next.js標準）
+    "indentWidth": 2,
+    // 1行の文字数制限（可読性向上）
+    "lineWidth": 80,
+    // セミコロンを常に付与（JavaScriptのASI問題を回避）
+    "semicolons": "always",
+    // シングルクォートを使用（一貫性とタイピング効率）
+    "quoteStyle": "single",
+    // JSX内ではダブルクォートを使用（HTML属性との整合性）
+    "jsxQuoteStyle": "double",
+    // 配列・オブジェクトの末尾カンマを常に付与（Git diffの改善）
+    "trailingCommas": "all",
+    // 括弧の改行スタイル（K&Rスタイル）
+    "bracketSpacing": true,
+    "bracketSameLine": false
+  },
+  
+  // リンター設定 - コード品質とバグ予防
+  "linter": {
+    "enabled": true,
+    "rules": {
+      // 推奨ルールをすべて有効化（ベストプラクティスの強制）
+      "recommended": true,
+      
+      // 複雑度制御 - メンテナンス性向上
+      "complexity": {
+        // 関数の複雑度を制限（10以下を推奨）
+        "noExcessiveCognitiveComplexity": "error",
+        // ネストの深さを制限（4階層以下を推奨）
+        "noExcessiveNestedTestCases": "error"
+      },
+      
+      // 正確性 - バグの原因となるパターンを防止
+      "correctness": {
+        // 無効なフック使用を防止（React Hook Rules）
+        "useExhaustiveDependencies": "error",
+        // フックルールの違反を防止
+        "useHookAtTopLevel": "error"
+      },
+      
+      // パフォーマンス - 実行速度の最適化
+      "performance": {
+        // 配列コンストラクタの不正使用を防止
+        "noAccumulatingSpread": "error",
+        // 不必要なコンストラクタ使用を防止
+        "noBarrelFile": "off"
+      },
+      
+      // セキュリティ - 脆弱性の防止
+      "security": {
+        // dangerouslySetInnerHTMLの使用を警告
+        "noDangerouslySetInnerHtml": "warn"
+      },
+      
+      // スタイル - 読みやすさの向上
+      "style": {
+        // var使用を禁止（let/constを強制）
+        "noVar": "error",
+        // 不要なcontinue文を防止
+        "noUselessElse": "error",
+        // テンプレートリテラルの適切な使用
+        "useTemplate": "error",
+        // const assertionの適切な使用
+        "useAsConstAssertion": "error",
+        // 自己代入の防止
+        "noSelfAssign": "error"
+      },
+      
+      // 疑わしいコード - 潜在的な問題の検出
+      "suspicious": {
+        // デバッガー文の残留を防止
+        "noDebugger": "error",
+        // console.logの残留を警告（本番環境対策）
+        "noConsoleLog": "warn",
+        // 空ブロックの防止
+        "noEmptyBlockStatements": "error",
+        // 重複したオブジェクトキーの防止
+        "noDuplicateObjectKeys": "error"
+      },
+      
+      // Nursery（実験的ルール） - 新機能のテスト
+      "nursery": {
+        // セマンティックなネーミングの強制
+        "useSortedClasses": "off",
+        // import文の順序整理（後述のorganizeImportsと連携）
+        "useImportRestrictions": "off"
+      }
+    }
+  },
+  
+  // インポート文の自動整理 - 依存関係の可視化
+  "organizeImports": {
+    "enabled": true,
+    // インポート文をアルファベット順でソート
+    "ignore": [
+      // 整理対象から除外するファイル（自動生成ファイルなど）
+      "**/generated/**",
+      "**/*.d.ts"
+    ]
+  },
+  
+  // JavaScript固有の設定
+  "javascript": {
+    "formatter": {
+      // セミコロン挿入の詳細設定
+      "semicolons": "always",
+      // クォートスタイルの統一
+      "quoteStyle": "single",
+      // 括弧内のスペース設定
+      "bracketSpacing": true,
+      // 配列・オブジェクトの末尾カンマ
+      "trailingCommas": "all"
+    },
+    "globals": [
+      // グローバル変数の定義（ブラウザ環境）
+      "window",
+      "document",
+      "console",
+      // Node.js環境
+      "process",
+      "Buffer",
+      "global",
+      // テスト環境（Jest/Vitest）
+      "describe",
+      "it",
+      "expect",
+      "beforeEach",
+      "afterEach",
+      "beforeAll",
+      "afterAll"
+    ]
+  },
+  
+  // JSON設定 - 設定ファイルの品質管理
+  "json": {
+    "formatter": {
+      // JSONのインデント設定
+      "indentWidth": 2,
+      "indentStyle": "space",
+      // JSONでは末尾カンマを無効化（仕様準拠）
+      "trailingCommas": "none"
+    }
+  },
+  
+  // 特定ファイルタイプのオーバーライド設定
+  "overrides": [
+    {
+      // package.jsonなど重要な設定ファイル
+      "include": ["package.json", "tsconfig.json"],
+      "formatter": {
+        // 重要ファイルはより厳密なフォーマット
+        "lineWidth": 100,
+        "indentWidth": 2
+      },
+      "linter": {
+        "rules": {
+          // JSONファイルでのコメント使用を許可
+          "correctness": {
+            "noUnusedVariables": "off"
+          }
+        }
+      }
+    },
+    {
+      // テストファイルの特別設定
+      "include": ["**/*.test.*", "**/*.spec.*", "**/test/**"],
+      "linter": {
+        "rules": {
+          // テストファイルではconsole.logを許可
+          "suspicious": {
+            "noConsoleLog": "off"
+          },
+          // テストファイルでは複雑度チェックを緩和
+          "complexity": {
+            "noExcessiveCognitiveComplexity": "warn"
+          }
+        }
+      }
+    },
+    {
+      // 設定ファイルの特別設定
+      "include": ["**/*.config.*", "**/.*rc.*"],
+      "linter": {
+        "rules": {
+          // 設定ファイルではrequire()の使用を許可
+          "style": {
+            "useTemplate": "off"
+          }
+        }
+      }
+    }
+  ]
+}

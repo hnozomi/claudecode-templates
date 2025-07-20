@@ -1,0 +1,158 @@
+{
+  // VSCode設定ファイル - Biome統合用
+  // 使用方法: このファイルを .vscode/settings.json としてコピー
+  // 役割: VSCodeでBiomeを最適に活用するためのエディタ設定
+  
+  // === Biome拡張機能の設定 ===
+  "biome.enabled": true,
+  // Biomeを既定のフォーマッターに設定
+  "editor.defaultFormatter": "biomejs.biome",
+  
+  // === 自動保存時の動作設定 ===
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": false,
+  
+  // 保存時にBiomeの全機能を実行
+  "editor.codeActionsOnSave": {
+    // Biomeによる自動修正を実行
+    "quickfix.biome": "explicit",
+    // インポート文の自動整理
+    "source.organizeImports.biome": "explicit",
+    // 未使用の変数・インポートを削除
+    "source.removeUnusedImports": "explicit",
+    // コードアクションの適用
+    "source.fixAll": "explicit"
+  },
+  
+  // === ファイルタイプ別のフォーマッター設定 ===
+  "[javascript]": {
+    "editor.defaultFormatter": "biomejs.biome",
+    "editor.formatOnSave": true
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "biomejs.biome", 
+    "editor.formatOnSave": true
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "biomejs.biome",
+    "editor.formatOnSave": true
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "biomejs.biome",
+    "editor.formatOnSave": true
+  },
+  "[json]": {
+    "editor.defaultFormatter": "biomejs.biome",
+    "editor.formatOnSave": true
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "biomejs.biome",
+    "editor.formatOnSave": true
+  },
+  
+  // === 他のフォーマッターとの競合回避 ===
+  // ESLint拡張機能を無効化（Biomeと競合回避）
+  "eslint.enable": false,
+  // Prettier拡張機能を無効化（Biomeと競合回避）
+  "prettier.enable": false,
+  
+  // === エディター表示設定 ===
+  // インデント設定をBiomeと統一
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  
+  // 行末文字の表示
+  "editor.renderWhitespace": "boundary",
+  "files.eol": "\n",
+  
+  // === エラー・警告の表示設定 ===
+  // Biomeの診断情報を即座に表示
+  "problems.decorations.enabled": true,
+  "editor.lightbulb.enabled": "on",
+  
+  // インライン警告の表示
+  "editor.inlineSuggest.enabled": true,
+  "editor.parameterHints.enabled": true,
+  
+  // === TypeScript統合設定 ===
+  // TypeScriptとBiomeの連携
+  "typescript.preferences.organizeImports": false,
+  "typescript.format.enable": false,
+  "javascript.format.enable": false,
+  
+  // === ファイル監視設定 ===
+  // biome.jsonの変更を監視
+  "files.watcherExclude": {
+    "**/node_modules/**": true,
+    "**/.git/**": true,
+    "**/dist/**": true,
+    "**/build/**": true,
+    "**/.next/**": true
+  },
+  
+  // === 自動保存設定 ===
+  "files.autoSave": "onFocusChange",
+  "files.autoSaveDelay": 1000,
+  
+  // === Git統合設定 ===
+  // コミット前に自動フォーマット
+  "git.enableCommitSigning": false,
+  "git.postCommitCommand": "none",
+  
+  // === ターミナル統合設定 ===
+  // Biomeコマンドの簡単実行用
+  "terminal.integrated.env.osx": {
+    "BIOME_CHECK": "npx biome check --write ."
+  },
+  "terminal.integrated.env.linux": {
+    "BIOME_CHECK": "npx biome check --write ."
+  },
+  "terminal.integrated.env.windows": {
+    "BIOME_CHECK": "npx biome check --write ."
+  },
+  
+  // === 推奨拡張機能の設定 ===
+  // VSCode拡張機能の推奨リスト
+  "extensions.recommendations": [
+    // Biome公式拡張機能
+    "biomejs.biome",
+    // TypeScript支援
+    "ms-vscode.vscode-typescript-next",
+    // Git統合
+    "eamodio.gitlens",
+    // ファイルアイコン
+    "vscode-icons-team.vscode-icons"
+  ],
+  
+  // === パフォーマンス設定 ===
+  // 大きなファイルでの動作最適化
+  "editor.maxTokenizationLineLength": 20000,
+  "editor.largeFileOptimizations": true,
+  
+  // === デバッグ・開発設定 ===
+  // Biome拡張機能のデバッグ情報
+  "biome.trace.server": "off",
+  "biome.lspBin": null,
+  
+  // === プロジェクト固有設定のヒント ===
+  "_comment_workspace": {
+    "このファイルの使用方法": [
+      "1. プロジェクトルートに .vscode フォルダを作成",
+      "2. このファイルを .vscode/settings.json としてコピー", 
+      "3. VSCodeでBiome拡張機能をインストール",
+      "4. プロジェクトを再読み込み"
+    ],
+    "チーム開発での注意点": [
+      "settings.jsonはプロジェクトでコミットして共有",
+      "個人設定は各自のユーザー設定で調整",
+      "biome.jsonと合わせて設定の一貫性を保つ"
+    ],
+    "トラブルシューティング": [
+      "Biome拡張機能が動かない → VSCode再起動",
+      "フォーマットが効かない → defaultFormatterを確認",
+      "他の拡張機能と競合 → eslint.enable/prettier.enableをfalseに"
+    ]
+  }
+}

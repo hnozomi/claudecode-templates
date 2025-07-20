@@ -1,0 +1,87 @@
+{
+  "name": "biome-scripts-template",
+  "version": "1.0.0",
+  "description": "Biome用の推奨package.jsonスクリプト設定",
+  "scripts": {
+    "_comment_lint": "=== Biome リンター関連スクリプト ===",
+    "lint": "biome lint .",
+    "lint:fix": "biome lint --write .",
+    "lint:ci": "biome lint --reporter=github .",
+    
+    "_comment_format": "=== Biome フォーマッター関連スクリプト ===",
+    "format": "biome format --write .",
+    "format:check": "biome format .",
+    "format:ci": "biome format --reporter=github .",
+    
+    "_comment_check": "=== Biome 総合チェック（推奨）===",
+    "check": "biome check .",
+    "check:fix": "biome check --write .",
+    "check:ci": "biome check --reporter=github .",
+    
+    "_comment_imports": "=== インポート整理 ===",
+    "imports": "biome check --write --only=organizeImports .",
+    "imports:check": "biome check --only=organizeImports .",
+    
+    "_comment_pre": "=== 開発フロー統合スクリプト ===",
+    "pre-commit": "npm run check:fix && npm run imports",
+    "pre-push": "npm run check:ci",
+    "clean-code": "npm run format && npm run lint:fix && npm run imports",
+    
+    "_comment_watch": "=== 監視モード（開発時） ===",
+    "lint:watch": "biome lint --watch .",
+    "format:watch": "biome format --watch .",
+    
+    "_comment_specific": "=== 特定ファイル向けスクリプト ===",
+    "lint:src": "biome lint ./src",
+    "format:src": "biome format --write ./src",
+    "check:src": "biome check --write ./src",
+    
+    "_comment_migration": "=== ESLint/Prettier移行支援 ===",
+    "migrate:eslint": "biome migrate eslint --write",
+    "migrate:prettier": "biome migrate prettier --write",
+    
+    "_comment_dev": "=== 開発用統合コマンド（例） ===",
+    "dev": "npm run pre-commit && next dev",
+    "build": "npm run check:ci && next build",
+    "test": "npm run check:ci && jest"
+  },
+  "devDependencies": {
+    "_comment_biome": "Biome本体 - 最新版を使用推奨",
+    "@biomejs/biome": "^1.9.4"
+  },
+  
+  "_comment_config": "=== package.json内でのBiome設定（オプション） ===",
+  "biome": {
+    "extends": ["./biome.json"]
+  },
+  
+  "_comment_husky": "=== Git Hooks統合例（Huskyと組み合わせ） ===",
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run pre-commit",
+      "pre-push": "npm run pre-push"
+    }
+  },
+  
+  "_comment_scripts_explanation": {
+    "基本コマンド": {
+      "check": "リント+フォーマット+インポート整理を一括実行（最も推奨）",
+      "check:fix": "問題を自動修正しながら一括チェック",
+      "check:ci": "CI環境用（修正せず結果のみ報告）"
+    },
+    "個別コマンド": {
+      "lint": "リンターのみ実行",
+      "format": "フォーマッターのみ実行",
+      "imports": "インポート整理のみ実行"
+    },
+    "開発フロー": {
+      "pre-commit": "コミット前の品質チェック",
+      "clean-code": "コード全体のクリーンアップ",
+      "dev/build/test": "各段階での品質保証"
+    },
+    "CI/CD統合": {
+      "reporter=github": "GitHub ActionsでのPR差分表示",
+      "watch": "ファイル変更を監視して自動実行"
+    }
+  }
+}
