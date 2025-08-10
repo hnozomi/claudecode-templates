@@ -27,10 +27,12 @@ project-name/
 │   │
 │   ├── shared/                  # 共有 UI / フック / Utils
 │   │   ├── components/ui/
-│   │   ├── hooks/
-│   │   └── utils/
+│   │   │   └── index.ts         # バレル
+│   │   └── hooks/
+│   │       └── index.ts         # バレル
 │   │
 │   ├── lib/                     # 外部ライブラリ初期化・ラッパ
+│   │   └── index.ts             # バレル
 │   │                            # 例: axios.ts など（ライブラリごとにファイルを配置）
 │   │
 │   ├── types/                   # グローバル型定義
@@ -65,11 +67,10 @@ project-name/
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@components/*": ["./src/shared/components/*"],
-      "@hooks/*": ["./src/shared/hooks/*"],
-      "@utils/*": ["./src/shared/utils/*"],
-      "@lib/*": ["./src/lib/*"],
-      "@/features/*": ["./src/features/*"]
+      "@/components/*": ["./src/shared/components/*"],
+      "@/features/*": ["./src/features/*"],
+      "@/hooks/*": ["./src/shared/hooks/*"],
+      "@/lib/*": ["./src/lib/*"]
     }
   }
 }
